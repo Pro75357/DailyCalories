@@ -1,0 +1,52 @@
+
+
+<template name="database">
+    <div class="container">
+
+        <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="container-fluid">
+                    <label>Add a new food</label>
+                    <form id="databaseForm">
+                        <input id="foodName" type="text" placeholder="Food name">
+                        <input id="calories" type="text" placeholder="Calories" style="width: 60px"> /
+                        <select id="units">
+                            {{#each unit in units}}
+                                <option value="{{unit}}">{{unit}}</option>
+                            {{/each}}
+                        </select>
+                        <button type="submit"> Submit </button>
+                    </form>
+                </div>
+                <hr />
+                <div style="height:400px; overflow:auto">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <thead class="info">
+                    <tr>
+                        <th class="col-sm-1">
+                            Food
+                        </th>
+                        <th class="col-sm-1">
+                            calories
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each foodCalories}}
+                        <tr class="fooditem">
+                            <td class="col-sm-1">{{name}}</td>
+                            <td class="col-sm-1">{{formatNumberTwoDecimal calories}}/{{unit}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                {{> createDish}}
+            </div>
+        </div>
+
+    </div>
+</template>
