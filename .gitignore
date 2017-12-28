@@ -1,3 +1,3 @@
-node_modules/
-.vs/
-.idea/
+DailyCalories/node_modules/
+DailyCalories/.vs/
+DailyCalories/.idea/

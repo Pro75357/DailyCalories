@@ -1,0 +1,29 @@
+<template name="upload">
+    <div class="container">
+        <div class="container-fluid">
+        <div class="pull-right">
+            Current Database items: {{databaseCount}}
+            <button id="export">Export as CSV</button>
+            <br>
+            <form id="deleteForm">
+                <label>to delete all, type "delete" and press button</label>
+                <input id="deleteText" type="text"/>
+                <button id="deleteAll" action="submit">Delete</button>
+            </form>
+        </div>
+        <h4 class="page-header">Import ingredients</h4>
+
+        {{#unless uploading}}
+            <input type="file" name="uploadCSV">
+        {{else}}
+            <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
+        {{/unless}}
+        </div>
+        <!--
+        <div class="container-fluid">
+            <pre>{{databaseVomit}}</pre>
+        </div>
+
+        -->
+    </div>
+</template>
