@@ -1,4 +1,4 @@
-import {calorieDatabase, Daily} from "../../collections/calorieDatabase";
+import {calorieDatabase, Daily} from "../../../collections/calorieDatabase";
 import {Session} from "meteor/session";
 import {Template} from "meteor/templating";
 

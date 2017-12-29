@@ -1,0 +1,24 @@
+
+<template name="header">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-9">
+                <h1>Daily Calories</h1>
+            </div>
+            <div class="col-sm-3">
+                {{#if currentUser}}
+                    {{user.profile.name}}
+                    <button class="btn btn-info">logout</button>
+                <!--
+                    <pre>
+                    {{uservomit}}
+                    </pre>
+                    -->
+                {{/if}}
+            </div>
+
+        </div>
+    </div>
+</template>
+

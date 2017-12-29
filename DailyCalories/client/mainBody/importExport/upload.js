@@ -1,4 +1,4 @@
-import { calorieDatabase } from "../../collections/calorieDatabase";
+import { calorieDatabase } from "../../../collections/calorieDatabase";
 
 Template.upload.onCreated(function(){
     Session.set('uploading', false)

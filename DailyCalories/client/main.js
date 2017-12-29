@@ -8,8 +8,20 @@ Template.body.onCreated = function(){
     Session.set('importExport',false)
     document.getElementById("edit").checked = false
     document.getElementById("importExport").checked = false
+};
 
-}
+
+Router.route('/', function () {
+    if (!Meteor.userId()) {
+        this.render('welcome');
+    } else {
+        this.render('daily')
+    }
+});
+
+Router.route('/signup', function(){
+    this.render('signup')
+});
 
 
 Template.body.helpers({
@@ -18,7 +30,10 @@ Template.body.helpers({
     },
     importExport(){
         return Session.get('importExport')
-    }
+    },
+    islogin(){
+        return Meteor.userId()
+    },
 });
 
 Template.body.events({
@@ -29,3 +44,5 @@ Template.body.events({
         Session.set('importExport', event.target.checked)
     }
 });
+
+

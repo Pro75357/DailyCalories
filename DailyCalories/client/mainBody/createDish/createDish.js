@@ -1,5 +1,5 @@
 import {Session} from "meteor/session";
-import {calorieDatabase} from "../../collections/calorieDatabase";
+import {calorieDatabase} from "../../../collections/calorieDatabase";
 import {check} from "meteor/check";
 import {Template} from "meteor/templating";
 

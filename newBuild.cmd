@@ -1,5 +1,6 @@
 
 setlocal
+@echo off
 :PROMPT
 SET /P AREYOUSURE=Want to make a new build (Y/[N])?
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO END

@@ -28,3 +28,5 @@ momentjs:moment
 harrison:papa-parse
 pfafman:filesaver
 fortawesome:fontawesome
+accounts-password
+iron:router

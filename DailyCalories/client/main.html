@@ -4,33 +4,10 @@
 
 <body>
     {{> header}}
-    <hr />
-    {{#if edit}}
-        {{> database}}
-    {{else if importExport}}
-        {{> upload}}
-    {{else}}
-        {{> daily}}
-    {{/if}}
+
+<div class="container">
+    <!-- Iron router stuff here -->
+    {{> Router}}
+</div>
 
 </body>
-
-<template name="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h1>Calorie Calculator</h1>
-            </div>
-            <div class="col-sm-6">
-                <div class="pull-right">
-                    <label>Edit Database:</label>
-                    <input id="edit" type="checkbox"/>
-                    <br/>
-                    <label>Import and Export</label>
-                    <input id="importExport" type="checkbox"/>
-                </div>
-            </div>
-            </div>
-    </div>
-</template>
-
