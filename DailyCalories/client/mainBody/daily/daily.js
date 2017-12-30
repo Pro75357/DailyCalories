@@ -42,7 +42,7 @@ Template.daily.events({
         console.log(total)
     },
 
-    'submit form' (event) {
+    'submit .foodInput' (event) {
         event.preventDefault();
         //define vars
         let _id = event.target.foodListInput.value;
@@ -63,6 +63,20 @@ Template.daily.events({
             totalCal: totalCal,
             old_id: _id,
             unit: unit,
+            date: new Date()
+        })
+    },
+    'submit .exerciseInput'(event){
+        event.preventDefault();
+        let name = event.target.exerciseNameInput.value;
+        let totalCal = event.target.exerciseCals.value;
+
+        //Store this in the Daily database
+        Daily.insert({
+            userId: Meteor.userId(),
+            name: name,
+            totalCal: -totalCal,
+            unit: "Exercise",
             date: new Date()
         })
     },

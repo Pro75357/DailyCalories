@@ -9,7 +9,7 @@
         <h2>Daily calories</h2>
         <div class="row">
             <div class="col-sm-4 fa-border">
-                <form class="measurementfield">
+                <form class="foodInput">
                     <div class="input-group">
                         <select class="form-control" id="foodListInput" name="foodListInput">
                             {{#each foodList}}
@@ -20,11 +20,11 @@
 
                     <div class="row">
                         <div class="col-xs-6">
-                        <h4 class="text-center">Add food</h4>
+                        <h4 class="text-center">Intake</h4>
                         </div>
                         <div class="col-xs-6">
                             <div class="input-group padding">
-                                <input class="form-control" type="number" id="measurement" name="measurement" placeholder="measurement"/>
+                                <input class="form-control" type="number" id="measurement" name="measurement" placeholder="Amt"/>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary">Add</button>
                                 </span>
@@ -34,8 +34,32 @@
                 </form>
 
             </div>
-            <div class="col-sm-10">
-                    <h3>Daily Sum: {{formatNumber totalDaily}}</h3>
+            <div class="col-sm-4 fa-border">
+
+                <form class="exerciseInput">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="exerciseNameInput" placeholder="Exercise Name"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4 class="text-center">Exercise</h4>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="input-group padding">
+                                <input class="form-control" type="number" id="exerciseCals" name="exerciseCals" placeholder="Cals"/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-4">
+                    <h3 class="pull-right">Today's Gross: {{formatNumber totalDaily}} Cal</h3>
             </div>
         </div>
         <hr />
