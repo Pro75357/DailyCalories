@@ -14,32 +14,30 @@ Template.createDish.events({
     'change .dishItemAmount': function (e) {
         // when the item amount is typed in, we need to save it with the corresponding item in the session variable
         try {
-            var amount = eval(e.target.value);
+            let amount = eval(e.target.value);
             //  console.log(amount)
             check(amount, Number)
+            DishItems.upsert({ _id: this._id }, { $set: { amount: amount } })
+            // match the ID and update with the amount...
         } catch (e) {
             alert('amount eval failed: '+e);
             return
         }
-
-        DishItems.upsert({ _id: this._id }, { $set: { amount: amount } })
-        // match the ID and update with the amount...
-
     },
     'submit #finishEdit': function (e) {
         e.preventDefault();
         //save new dish, get stuff from both collection and form event
-        var dishName = e.target.dishName.value;
-        var dishDate = e.target.dishDate.value;
-        var foodWeight = e.target.foodWeight.value;
+        let dishName = e.target.dishName.value;
+        let dishDate = e.target.dishDate.value;
+        let foodWeight = e.target.foodWeight.value;
 
         //calories is the sum of values of all the combined ingredients
-        var items = DishItems.find({}).fetch();
+        let items = DishItems.find({}).fetch();
         // for each item, multiply it's amount by it's calories
-        var totalCalories = 0;
+        let totalCalories = 0;
         // If values are blank, need to alert and quit
 
-        for (x in items) {
+        for (let x in items) {
             if (!items[x].amount) {
                 alert('No amount for: ' + items[x].name);
                 return
@@ -53,15 +51,16 @@ Template.createDish.events({
 
 
         for (x in items) {
-            cals = items[x].calories * items[x].amount;
+            let cals = items[x].calories * items[x].amount;
             totalCalories = totalCalories + cals
         }
 
-        var calsPerWeight = totalCalories / foodWeight;
+        let calsPerWeight = totalCalories / foodWeight;
 
         //build the new dish object based on convention:
 
-        var newDish = {
+        let newDish = {
+            userId: Meteor.userId(),
             name: dishName + " ("+dishDate+")",
             date: dishDate,
             calories: calsPerWeight,
@@ -99,9 +98,9 @@ Template.createDish.events({
         DishItems.remove({_id: this._id})
     },
     'change .weightEntry': function (e) {
-        var totalWeight = document.getElementById("totalWeight").value;
-        var dishWeight = document.getElementById("dishWeight").value;
-        var foodFinalWeight = totalWeight - dishWeight;
+        let totalWeight = document.getElementById("totalWeight").value;
+        let dishWeight = document.getElementById("dishWeight").value;
+        let foodFinalWeight = totalWeight - dishWeight;
         //  console.log(foodFinalWeight)
         Session.set('foodFinalWeight', foodFinalWeight)
     }

@@ -1,6 +1,8 @@
 import {Session} from "meteor/session";
 import {calorieDatabase} from "../../../collections/calorieDatabase";
 import {Template} from "meteor/templating";
+import {DishItems} from "../createDish/createDish";
+
 
 Template.database.events({
 
@@ -9,11 +11,12 @@ Template.database.events({
         event.preventDefault();
 
         //Build the food item's object
-        foodName = event.target.foodName.value;
-        calories = event.target.calories.value;
-        units = event.target.units.value;
+        let foodName = event.target.foodName.value;
+        let calories = event.target.calories.value;
+        let units = event.target.units.value;
 
-        newItem = {
+        let newItem = {
+            userId: Meteor.userId(),
             name: foodName,
             calories: calories,
             unit: units,
@@ -30,9 +33,9 @@ Template.database.events({
         //populate the text items with the info
 
         //get the fields
-        n = document.getElementById("foodName");
-        c = document.getElementById("calories");
-        u = document.getElementById("units");
+        let n = document.getElementById("foodName");
+        let c = document.getElementById("calories");
+        let u = document.getElementById("units");
 
         // set the values
         n.value = this.name;

@@ -11,6 +11,7 @@ Meteor.methods({
                 if (data[x]._id === ""){
                     // skip the blank file at the end of every papa parsed csv
                 } else {
+                    data[x].userId = Meteor.userId();
                     calorieDatabase.insert(data[x]);
                 }
             } else {
