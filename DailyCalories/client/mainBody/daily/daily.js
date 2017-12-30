@@ -9,14 +9,15 @@ Template.daily.onCreated(function(){
 
 Template.daily.onRendered(function(){
     document.getElementById('datePicker').value = Session.get('mainDate')
-    console.log(Session.get('mainDate'))
+    //console.log(Session.get('mainDate'))
 });
 
 Template.daily.helpers({
 
     dailyList: function () {
-        let start = moment(Session.get('mainDate')).startOf('day');
+        let start = moment(Session.get('mainDate')).add(-1,'days').endOf('day');
         let end = moment(Session.get('mainDate')).add(1,'days').startOf('day');
+       // console.log (start._d + " --- "+end._d);
 
         return Daily.find({ $and : [{date: { $gte: start._d}}, {date: { $lt: end._d}}]},
             {sort: {lowercaseName: 1}}).fetch();
@@ -24,7 +25,7 @@ Template.daily.helpers({
     totalDaily: function () {
         //first, get the database entries that match today's date
         // We will do this by getting all entries after midnight of today's date
-        let start = moment(Session.get('mainDate')).startOf('day');
+        let start = moment(Session.get('mainDate')).add(-1,'days').endOf('day');
         let end = moment(Session.get('mainDate')).add(1,'days').startOf('day');
 
         let entries = Daily.find({ $and : [{date: { $gte: start._d}}, {date: { $lt: end._d}}]}).fetch();
@@ -52,21 +53,6 @@ Template.daily.helpers({
 });
 
 Template.daily.events({
-    'click #test'(event) {
-        let m = moment(Session.get('mainDate'));
-        let midnight = m.startOf('day');
-        let end = m.endOf('day');
-
-        let entries = Daily.find({ date: { $gte: midnight._d, $lt:end._d  } }).fetch();
-        console.log(entries);
-        let total = 0;
-        for (let x in entries) {
-            //console.log(entries[x].totalCal)
-            total = total + entries[x].totalCal
-        }
-        console.log(total)
-    },
-
     'submit .foodInput' (event) {
         event.preventDefault();
         //define vars
@@ -79,6 +65,7 @@ Template.daily.events({
         let unit = db.unit;
         let totalCal = measurement * calScale;
 
+        let date = moment((Session.get('mainDate')));
 
         //Store this in the Daily database
         Daily.insert({
@@ -88,7 +75,7 @@ Template.daily.events({
             totalCal: totalCal,
             old_id: _id,
             unit: unit,
-            date: new Date()
+            date: date._d
         })
     },
     'submit .exerciseInput'(event){
@@ -96,13 +83,15 @@ Template.daily.events({
         let name = event.target.exerciseNameInput.value;
         let totalCal = event.target.exerciseCals.value;
 
+        let date = moment((Session.get('mainDate')));
+
         //Store this in the Daily database
         Daily.insert({
             userId: Meteor.userId(),
             name: name,
             totalCal: -totalCal,
             unit: "Exercise",
-            date: new Date()
+            date: date._d
         })
     },
     'click .dailyItem': function (event, t) {
@@ -130,8 +119,7 @@ Template.daily.events({
     },
     'change #datePicker': function(event){
         let date = event.target.value;
-        Session.set('mainDate',date)
-        console.log(Session.get('mainDate'))
+        Session.set('mainDate',date);
     }
 });
 

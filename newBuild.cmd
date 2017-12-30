@@ -30,7 +30,7 @@ cd ../%ProjectName%
 Echo making new build
 meteor build --server-only ../build/
  
-cd ../backup/
+cd ../build
 IF exist %ProjectName%.tar.gz (
     echo new build appears successful- deleting old backup. 
     del %ProjectName%.tar.gz.backup2
