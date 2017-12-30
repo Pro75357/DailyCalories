@@ -6,10 +6,10 @@
             <div class="col-sm-9">
                 <h1>Daily Calories</h1>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3" style="margin-top: 20px;">
                 {{#if currentUser}}
-                    {{user.profile.name}}
-                    <button class="btn btn-info">logout</button>
+                    Welcome, <strong>{{user.profile.name}}</strong> &nbsp;
+                    <button class="btn btn-info" id="logout">logout</button>
                 <!--
                     <pre>
                     {{uservomit}}
@@ -20,5 +20,18 @@
 
         </div>
     </div>
+{{#if currentUser}}
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <ul class="nav nav-pills">
+                <li><a href="/daily">daily</a></li>
+                <li><a href="/database">database</a></li>
+                <li><a href="/importExport">importExport</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    {{/if}}
 </template>
 

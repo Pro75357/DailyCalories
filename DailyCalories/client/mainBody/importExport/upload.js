@@ -1,10 +1,10 @@
 import { calorieDatabase } from "../../../collections/calorieDatabase";
 
-Template.upload.onCreated(function(){
+Template.importExport.onCreated(function(){
     Session.set('uploading', false)
 });
 
-Template.upload.helpers({
+Template.importExport.helpers({
     uploading() {
         return Session.get('uploading');
     },
@@ -18,7 +18,7 @@ Template.upload.helpers({
 });
 
 
-Template.upload.events({
+Template.importExport.events({
     'change [name="uploadCSV"]' ( event, template ) {
         Session.set('uploading', true)
         Papa.parse( event.target.files[0], {

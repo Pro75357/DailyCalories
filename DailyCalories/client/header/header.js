@@ -9,7 +9,7 @@ Template.header.helpers({
 });
 
 Template.header.events({
-   'click button'(){
+   'click #logout'(){
        Meteor.logout()
-   }
+   },
 });

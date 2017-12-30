@@ -2,26 +2,15 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 
 import './main.html';
+import './routes.js';
 
 Template.body.onCreated = function(){
     Session.set('edit', false)
     Session.set('importExport',false)
+    Session.set('currentTab',"daily")
     document.getElementById("edit").checked = false
     document.getElementById("importExport").checked = false
 };
-
-
-Router.route('/', function () {
-    if (!Meteor.userId()) {
-        this.render('welcome');
-    } else {
-        this.render('daily')
-    }
-});
-
-Router.route('/signup', function(){
-    this.render('signup')
-});
 
 
 Template.body.helpers({
