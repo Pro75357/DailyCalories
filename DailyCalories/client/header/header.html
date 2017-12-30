@@ -25,9 +25,11 @@
     <div class="row">
         <div class="col-sm-6">
             <ul class="nav nav-pills">
-                <li><a href="/daily">daily</a></li>
-                <li><a href="/database">database</a></li>
-                <li><a href="/importExport">importExport</a></li>
+                {{#each nav in navs}}
+                    <li class={{maybeActive nav}}>
+                        <a id="{{nav}}" href="/{{nav}}">{{nav}}</a>
+                    </li>
+                {{/each}}
             </ul>
         </div>
     </div>
