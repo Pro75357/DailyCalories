@@ -25,3 +25,7 @@ input[type="number"] {
 .table-xtra-condensed > tfoot > tr > td {
     padding: 2px;
 }
+
+.padding {
+    padding-top: 4px;
+}
