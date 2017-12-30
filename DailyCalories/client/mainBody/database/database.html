@@ -20,11 +20,11 @@
                     </form>
                 </div>
                 <hr />
-                <div style="height:400px; overflow:auto">
-                <table class="table table-striped table-bordered table-hover table-condensed">
+                <div class="container-fluid" style="height:400px; overflow:auto">
+                <table class="table table-xtra-condensed">
                     <thead class="info">
                     <tr>
-                        <th class="col-sm-1">
+                        <th>
                             Food
                         </th>
                         <th class="col-sm-1">
@@ -34,9 +34,9 @@
                     </thead>
                     <tbody>
                     {{#each foodCalories}}
-                        <tr class="fooditem">
-                            <td class="col-sm-1">{{name}}</td>
-                            <td class="col-sm-1">{{formatNumberTwoDecimal calories}}/{{unit}}</td>
+                        <tr class="fooditem {{tableColor type}}">
+                            <td>{{name}}</td>
+                            <td><strong>{{formatNumberTwoDecimal calories}}</strong>/{{unit}}</td>
                         </tr>
                     {{/each}}
                     </tbody>

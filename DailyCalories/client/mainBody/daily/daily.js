@@ -5,7 +5,7 @@ import {Template} from "meteor/templating";
 Template.daily.helpers({
 
     dailyList: function () {
-        return Daily.find({}).fetch()
+        return Daily.find({},{sort: {lowercaseName: 1}}).fetch()
     },
     totalDaily: function () {
         //first, get the database entries that match today's date
@@ -23,7 +23,7 @@ Template.daily.helpers({
         return total
     },
     foodList: function () {
-        return calorieDatabase.find({}).fetch()
+        return calorieDatabase.find({},{sort: {lowercaseName: 1}}).fetch()
     },
 });
 

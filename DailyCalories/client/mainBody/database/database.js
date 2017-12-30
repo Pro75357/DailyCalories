@@ -18,6 +18,7 @@ Template.database.events({
         let newItem = {
             userId: Meteor.userId(),
             name: foodName,
+            lowercaseName: foodName.toLowerCase(),
             calories: calories,
             unit: units,
             type: 'ingredient'
@@ -76,11 +77,20 @@ Template.database.events({
 
 Template.database.helpers({
     foodCalories(){
-        return calorieDatabase.find({}).fetch()
+        return calorieDatabase.find({}, {sort: {lowercaseName: 1}}).fetch()
     },
     units() {
-        return ['g', 'ml', 'Tbps', 'tsp', 'cup','oz','cal']
+        return ['g', 'ml', 'Tbps', 'tsp', 'cup','oz','cal', 'Each']
+    },
+    tableColor(foodType){
+        switch(foodType) {
+            case 'ingredient':
+                return "bg-ingredient";
+            case 'recipe':
+                return "bg-recipe";
+        }
     }
+
 });
 
 Template.registerHelper('formatDate', function (date) {

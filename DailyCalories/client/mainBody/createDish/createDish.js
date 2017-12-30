@@ -16,12 +16,11 @@ Template.createDish.events({
         try {
             let amount = eval(e.target.value);
             //  console.log(amount)
-            check(amount, Number)
+            check(amount, Number);
             DishItems.upsert({ _id: this._id }, { $set: { amount: amount } })
             // match the ID and update with the amount...
         } catch (e) {
             alert('amount eval failed: '+e);
-            return
         }
     },
     'submit #finishEdit': function (e) {
@@ -50,7 +49,7 @@ Template.createDish.events({
         }
 
 
-        for (x in items) {
+        for (let x in items) {
             let cals = items[x].calories * items[x].amount;
             totalCalories = totalCalories + cals
         }
@@ -58,10 +57,11 @@ Template.createDish.events({
         let calsPerWeight = totalCalories / foodWeight;
 
         //build the new dish object based on convention:
-
+        let name = dishName + " ("+dishDate+")";
         let newDish = {
             userId: Meteor.userId(),
-            name: dishName + " ("+dishDate+")",
+            name: name,
+            lowercaseName: name.toLowerCase(),
             date: dishDate,
             calories: calsPerWeight,
             unit: 'g',
@@ -111,17 +111,17 @@ Template.createDish.helpers({
         return Session.get('dishEdit')
     },
     foodList: function () {
-        return calorieDatabase.find({}).fetch()
+        return calorieDatabase.find({}, {sort: {lowercaseName: 1}}).fetch()
     },
     dishItem() {
         return DishItems.find({}).fetch()
     },
     dishEstWeight() {
         // get all the amounts from the DishItem collection and add them up
-        items = DishItems.find({}).fetch();
-        total = 0;
-        for (x in items) {
-            amt = parseInt(items[x].amount);
+        let items = DishItems.find({}).fetch();
+        let total = 0;
+        for (let x in items) {
+            let amt = parseInt(items[x].amount);
             total = total + amt
         }
         return total
@@ -130,8 +130,8 @@ Template.createDish.helpers({
         return Session.get('foodFinalWeight')
     },
     today() {
-        m = moment(new Date());
-        today = m.format('YYYY-DD-MM');
+        let m = moment(new Date());
+        let today = m.format('YYYY-DD-MM');
         return today
     },
     vomit() {
