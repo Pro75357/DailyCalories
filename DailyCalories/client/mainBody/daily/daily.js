@@ -2,18 +2,32 @@ import {calorieDatabase, Daily} from "../../../collections/calorieDatabase";
 import {Session} from "meteor/session";
 import {Template} from "meteor/templating";
 
+Template.daily.onCreated(function(){
+    let m = moment(new Date()).format("YYYY-MM-DD");
+    Session.set('mainDate', m)
+});
+
+Template.daily.onRendered(function(){
+    document.getElementById('datePicker').value = Session.get('mainDate')
+    console.log(Session.get('mainDate'))
+});
+
 Template.daily.helpers({
 
     dailyList: function () {
-        return Daily.find({},{sort: {lowercaseName: 1}}).fetch()
+        let start = moment(Session.get('mainDate')).startOf('day');
+        let end = moment(Session.get('mainDate')).add(1,'days').startOf('day');
+
+        return Daily.find({ $and : [{date: { $gte: start._d}}, {date: { $lt: end._d}}]},
+            {sort: {lowercaseName: 1}}).fetch();
     },
     totalDaily: function () {
         //first, get the database entries that match today's date
         // We will do this by getting all entries after midnight of today's date
-        let m = moment(new Date());
-        let midnight = m.startOf('day');
+        let start = moment(Session.get('mainDate')).startOf('day');
+        let end = moment(Session.get('mainDate')).add(1,'days').startOf('day');
 
-        let entries = Daily.find({ date: { $gte: midnight._d } }).fetch();
+        let entries = Daily.find({ $and : [{date: { $gte: start._d}}, {date: { $lt: end._d}}]}).fetch();
         //console.log(entries)
         let total = 0;
         for (let x in entries) {
@@ -25,14 +39,25 @@ Template.daily.helpers({
     foodList: function () {
         return calorieDatabase.find({},{sort: {lowercaseName: 1}}).fetch()
     },
+    dayWord(){
+        let today = moment(new Date()).format('YYYY-MM-DD');
+        if (Session.equals('mainDate',today)){
+            return "Today's"
+        } else if (Session.equals('mainDate','')){
+            return null;
+        } else {
+            return "Selected Date's"
+        }
+    }
 });
 
 Template.daily.events({
     'click #test'(event) {
-        let m = moment(new Date());
+        let m = moment(Session.get('mainDate'));
         let midnight = m.startOf('day');
+        let end = m.endOf('day');
 
-        let entries = Daily.find({ date: { $gte: midnight._d } }).fetch();
+        let entries = Daily.find({ date: { $gte: midnight._d, $lt:end._d  } }).fetch();
         console.log(entries);
         let total = 0;
         for (let x in entries) {
@@ -102,6 +127,11 @@ Template.daily.events({
         // remove the old number on new dropdown selection
         let  m = document.getElementById("measurement");
         m.value = ""
+    },
+    'change #datePicker': function(event){
+        let date = event.target.value;
+        Session.set('mainDate',date)
+        console.log(Session.get('mainDate'))
     }
 });
 

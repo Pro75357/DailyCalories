@@ -7,6 +7,7 @@
         ignored-->
     <div class="container">
         <h2>Daily calories</h2>
+
         <div class="row">
             <div class="col-sm-4 fa-border">
                 <form class="foodInput">
@@ -59,7 +60,14 @@
                 </form>
             </div>
             <div class="col-sm-4">
-                    <h3 class="pull-right">Today's Gross: {{formatNumber totalDaily}} Cal</h3>
+                <div class="pull-right">
+                    {{#if dayWord}}
+                    <h4>{{dayWord}} Gross: {{formatNumber totalDaily}} Cal</h4>
+                    {{else}}
+                        <h4>Please select a date!</h4>
+                    {{/if}}
+                    <span>pick another date: </span> <input type="date" id="datePicker">
+                </div>
             </div>
         </div>
         <hr />
