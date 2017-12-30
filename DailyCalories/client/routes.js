@@ -11,9 +11,9 @@ Router.route('/', function () {
 
 Router.route('/signup', function(){
     if (Meteor.userId()) {
-        this.render('signup')
-    } else {
         Router.go('/')
+    } else {
+        this.render('signup')
     }
 });
 
