@@ -40,3 +40,11 @@ Router.route('/importExport', function(){
         Router.go('/')
     }
 });
+
+Router.route('/testing', function(){
+    if (Meteor.userId()) {
+        this.render('testing')
+    } else {
+        Router.go('/')
+    }
+});

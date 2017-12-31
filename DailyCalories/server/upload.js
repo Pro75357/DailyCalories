@@ -1,10 +1,10 @@
-import { calorieDatabase } from "../collections/calorieDatabase";
+import {AllFoods, calorieDatabase} from "../collections/calorieDatabase";
 
 Meteor.methods({
     parseUpload(data) {
         check( data, Array );
 
-        for ( var x in data) {
+        for ( let x in data) {
                 let exists = calorieDatabase.findOne( { _id: data[x]._id } );
 
             if ( !exists ) {
@@ -22,5 +22,24 @@ Meteor.methods({
                 console.warn( 'Rejected. This item already exists.' );
             }
         }
-    }
+    },
+    parseAllFoods(data) {
+        check( data, Array );
+
+        for ( let x in data) {
+            let exists = AllFoods.findOne( { _id: data[x]._id } );
+
+            if ( !exists ) {
+                if (data[x]._id === ""){
+                    // skip the blank file at the end of every papa parsed csv
+                } else {
+                    data[x].lowercaseName = data[x].name.toLowerCase();
+                    AllFoods.insert(data[x]);
+                }
+            } else {
+                console.warn( 'Rejected. This item already exists.' );
+            }
+        }
+    },
+
 });

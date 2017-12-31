@@ -20,7 +20,7 @@ Template.importExport.helpers({
 
 Template.importExport.events({
     'change [name="uploadCSV"]' ( event, template ) {
-        Session.set('uploading', true)
+        Session.set('uploading', true);
         Papa.parse( event.target.files[0], {
             header: true,
             complete( results, file ) {
@@ -30,7 +30,7 @@ Template.importExport.events({
                         alert('warning ' + error.reason);
                         Session.set('uploading', false)
                     } else {
-                        Session.set('uploading', false)
+                        Session.set('uploading', false);
                         alert('Upload complete!');
                     }
                 })
@@ -39,22 +39,22 @@ Template.importExport.events({
     },
 
     'submit #deleteForm': function(event){
-        event.preventDefault()
+        event.preventDefault();
         if (event.target.deleteText.value === 'delete'){
-            Meteor.call('deleteAll')
+            Meteor.call('deleteAll');
             event.target.deleteText.value = ''
         } else {
-            alert('must type "delete" to confirm delete all action')
+            alert('must type "delete" to confirm delete all action');
             event.target.deleteText.value = ''
         }
     },
 
     'click #export': function (event) {
-        var data = calorieDatabase.find({}).fetch()
-        var csv = Papa.unparse(data)
+        let data = calorieDatabase.find({}).fetch();
+        let csv = Papa.unparse(data);
        //console.log(csv)
-        var blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
-        var a = window.document.createElement("a");
+        let blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+        let a = window.document.createElement("a");
         a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
         a.download = "database.csv";
         document.body.appendChild(a);

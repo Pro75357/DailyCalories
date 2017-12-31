@@ -1,5 +1,5 @@
 
-const navs = ["daily","database","importExport"];
+const navs = ["daily","database","importExport", "testing"];
 
 Session.set('activeNav',navs[0])
 

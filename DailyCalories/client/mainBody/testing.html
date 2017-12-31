@@ -1,0 +1,26 @@
+<template name="testing">
+
+    <div class="container row">
+        <div clas="col-sm-6">
+        <h4 class="page-header">Import giant food database</h4>
+        {{#unless uploading}}
+            <input type="file" name="uploadCSV">
+        {{else}}
+            <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
+        {{/unless}}
+        </div>
+        <div class="col-sm-6">
+            Stuff here?
+        </div>
+    </div>
+    <input id="autoInput" type="text" name="autocomplete"  class="form-control autocomplete" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Enter Search String"/>
+
+    <span>Count: {{autoFoodsCount}} / {{allFoodsCount}}</span>
+    <br/>
+    <ul>
+    {{#each autoFoods}}
+        <li class="autoList" id="{{_id}}">{{name}} - {{calories}}/{{unit}}</li>
+    {{/each}}
+    </ul>
+
+</template>
